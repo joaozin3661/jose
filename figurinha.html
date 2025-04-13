@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Contagem + Pacote de Figurinhas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffcc70, #ff8c00);
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    #cronometro {
+      font-size: 3rem;
+      margin: 20px auto;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      display: inline-block;
+    }
+
+    button {
+      background-color: #fff;
+      color: #ff8c00;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      margin-top: 40px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ffe0b3;
+    }
+
+    .figurinhas {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+      gap: 20px;
+    }
+
+    .figurinha {
+      width: 180px;
+      height: 240px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      overflow: hidden;
+      animation: aparecer 0.4s ease-in-out;
+    }
+
+    .figurinha img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .rara {
+      border: 4px solid gold;
+    }
+
+    .lendaria {
+      border: 4px solid cyan;
+    }
+
+    @keyframes aparecer {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 Contagem Regressiva para o Aniversário do José Roberto 🎂</h1>
+  <div id="cronometro">Carregando...</div>
+
+  <button onclick="abrirPacote()">Abrir Pacote de Figurinhas - Há um Set Booster disponível</button>
+
+  <div class="figurinhas" id="figurinhas"></div>
+
+  <script>
+    function atualizaCronometro() {
+      const agora = new Date();
+      const anoAtual = agora.getFullYear();
+      let aniversario = new Date(anoAtual, 3, 18); // Maio = mês 4
+
+      if (agora > aniversario) {
+        aniversario = new Date(anoAtual + 1, 3, 18);
+      }
+
+      const diferenca = aniversario - agora;
+
+      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diferenca / (1000 * 60)) % 60);
+      const segundos = Math.floor((diferenca / 1000) % 60);
+
+      document.getElementById('cronometro').textContent =
+        `${dias}d ${horas}h ${minutos}min ${segundos}s`;
+    }
+
+    setInterval(atualizaCronometro, 1000);
+    atualizaCronometro();
+
+    const imagens = [
+      "figurinhas/jose1.png",
+      "figurinhas/jose2.png",
+      "figurinhas/jose3.jpg",
+      "figurinhas/jose4.png",
+      "figurinhas/jose5.png",
+      "figurinhas/jose6.png",
+      "figurinhas/jose7.png",
+      "figurinhas/jose8.png",
+      "figurinhas/jose9.png",
+      "figurinhas/jose10.jpeg",
+      "figurinhas/jose11.png",
+      "figurinhas/jose12.png",
+     
+    ];
+
+    function sorteiaImagem() {
+      const caminho = imagens[Math.floor(Math.random() * imagens.length)];
+      const raridade = Math.random();
+
+      let classe = "figurinha";
+      if (raridade < 0.1) {
+        classe += " lendaria";
+      } else if (raridade < 0.3) {
+        classe += " rara";
+      }
+
+      const div = document.createElement("div");
+      div.className = classe;
+
+      const img = document.createElement("img");
+      img.src = caminho;
+      img.alt = "Figurinha";
+
+      div.appendChild(img);
+      return div;
+    }
+
+    function abrirPacote() {
+  const container = document.getElementById("figurinhas");
+  container.innerHTML = "";
+
+  imagens.forEach((caminho, i) => {
+    setTimeout(() => {
+      const div = document.createElement("div");
+      div.className = "figurinha"; // Se quiser pode colocar .rara ou .lendaria aqui manualmente
+      const img = document.createElement("img");
+      img.src = caminho;
+      img.alt = "Figurinha";
+      div.appendChild(img);
+      container.appendChild(div);
+      if (caminho.includes("11")) {
+        div.className += " rara";
+      }
+    }, i * 300);
+  });
+}
+  </script>
+
+</body>
+</html>
+<!--                                  
+1 rara ou mítica
+
+3 incomuns
+
+10 comuns
+
+1 terreno básico (ou carta promocional/comum extra em algumas coleções)
+
+
+Set Booster
+Bilbo 
+Birthday scape   ---------------------
+birthday party  ------------------------------
+carrot cake     ------------------
+ballon            ---------------
+terreno é a casa  -----------------------
+josé roberto
+birthdy cake      --------------------------------- saber a idade
+medic                 -------------------
+familia         posso colocar a foto da familia
+whey             -------------------------
+time walk proximo aniversario ----------------------------------------
+trevo da sorte    ---------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -->
